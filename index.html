@@ -21,23 +21,56 @@
     object-fit: cover; /* agar video menutupi seluruh layar */
     z-index: -1; /* di belakang elemen lainnya */
   }
-  #content {
-    position: relative;
-    z-index: 1;
+
+  /* Kotak tengah untuk kontrol audio */
+  #audio-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.6); /* transparan hitam */
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     flex-direction: column;
-    color: white;
-    font-family: Arial, sans-serif;
+    align-items: center;
+    max-width: 300px;
+    width: 80%;
   }
+
+  /* Judul */
+  #audio-box h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+  }
+
+  /* Kontrol audio */
+  #myAudio {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  /* Tombol keren */
   button {
-    padding: 10px 20px;
-    font-size: 16px;
+    background-color: #4CAF50; /* Warna hijau */
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+  }
+
+  /* Efek hover pada tombol */
+  button:hover {
+    background-color: #45a049;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    transform: translateY(-2px);
   }
 </style>
 </head>
@@ -48,10 +81,10 @@
   <source src="https://files.catbox.moe/006jm4.mp4" type="video/mp4" />
 </video>
 
-<div id="content">
-  <h1>Audio dan Background Video</h1>
+<!-- Kotak kontrol audio di tengah -->
+<div id="audio-box">
+  <h2>Kontrol Audio</h2>
   <audio id="myAudio" src="https://files.catbox.moe/2bz695.mp3" controls autoplay loop></audio>
-  <br /><br />
   <button onclick="toggleAudio()">Nyalakan/Mati Audio</button>
 </div>
 
