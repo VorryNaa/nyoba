@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Audio, Background Video dan Lirik Lagu</title>
+<title>Audio Background Transparan - Tombol Spotify</title>
 <style>
   /* Mengatur agar video menjadi background */
   body, html {
@@ -23,66 +23,51 @@
     z-index: -1;
   }
 
-  /* Kotak tengah untuk kontrol audio dan lirik */
+  /* Kotak kontrol yang transparan dan di tengah */
   #control-box {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #1e90ff; /* warna biru cerah */
-    padding: 30px 40px;
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    background-color: rgba(30, 144, 255, 0.2); /* transparan */
+    padding: 20px;
+    border-radius: 50%;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    max-width: 400px;
-    width: 80%;
+    width: 100px;
+    height: 100px;
   }
 
-  /* Judul */
-  #control-box h2 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    color: #fff;
+  /* Tombol utama berbentuk lingkaran kecil */
+  #playPauseBtn {
+    background: rgba(255,255,255,0.7);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    transition: background 0.3s;
   }
 
-  /* Lirik lagu */
+  #playPauseBtn:hover {
+    background: rgba(255,255,255,0.9);
+  }
+
+  /* Lirik di bawah */
   #lyrics {
-    margin: 15px 0;
-    padding: 10px;
-    background-color: rgba(255,255,255,0.3);
-    border-radius: 10px;
-    color: #fff;
-    font-size: 1.2em;
-    min-height: 50px;
+    position: absolute;
+    bottom: 20px;
     width: 100%;
     text-align: center;
-  }
-
-  /* Kontrol audio */
-  #myAudio {
-    width: 100%;
-    margin-bottom: 15px;
-  }
-
-  /* Tombol */
-  button {
-    background-color: #fff;
-    color: #1e90ff;
-    padding: 12px 25px;
-    font-size: 16px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-  }
-
-  button:hover {
-    background-color: #f0f0f0;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-    transform: translateY(-2px);
+    color: #fff;
+    font-size: 1.2em;
+    padding: 10px;
+    background-color: rgba(0,0,0,0.3);
   }
 </style>
 </head>
@@ -93,17 +78,18 @@
   <source src="https://files.catbox.moe/006jm4.mp4" type="video/mp4" />
 </video>
 
-<!-- Kotak kontrol audio dan lirik -->
+<!-- Kotak kontrol di tengah berbentuk lingkaran -->
 <div id="control-box">
-  <h2>Kontrol Lagu dan Lirik</h2>
-  <audio id="myAudio" src="https://files.catbox.moe/2bz695.mp3" controls autoplay loop></audio>
-  <button onclick="toggleAudio()">Nyalakan/Mati Audio</button>
-  <div id="lyrics">Lirik akan muncul di sini...</div>
+  <button id="playPauseBtn" onclick="toggleAudio()">▶️</button>
 </div>
 
+<!-- Lirik di bawah -->
+<div id="lyrics">Lirik akan muncul di sini...</div>
+
 <script>
-  const audio = document.getElementById('myAudio');
+  const audio = new Audio("https://files.catbox.moe/2bz695.mp3");
   const lyricsDiv = document.getElementById('lyrics');
+  const playPauseBtn = document.getElementById('playPauseBtn');
 
   // Data lirik sesuai waktu (detik)
   const lyricsData = [
@@ -126,16 +112,17 @@
 
   let currentLyricIndex = 0;
 
-  // Fungsi untuk toggle suara
   function toggleAudio() {
     if (audio.paused) {
       audio.play();
+      playPauseBtn.textContent = "⏸️"; // ikon pause
     } else {
       audio.pause();
+      playPauseBtn.textContent = "▶️"; // ikon play
     }
   }
 
-  // Fungsi untuk update lirik sesuai waktu
+  // Update lirik sesuai waktu
   function updateLyrics() {
     const currentTime = audio.currentTime;
     if (
@@ -153,7 +140,7 @@
     }
   }
 
-  // Mengupdate lirik setiap 0.5 detik
+  // Update lirik setiap 0.5 detik
   setInterval(updateLyrics, 500);
 </script>
 
